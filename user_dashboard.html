@@ -1,0 +1,192 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	  <meta charset="UTF-8" />
+	  <title>User Dashboard - Waste Management</title>
+	
+	  <!-- Leaflet CSS -->
+	  <link
+	    rel="stylesheet"
+	    href="https://unpkg.com/leaflet/dist/leaflet.css"
+	  />
+	  
+	  <!-- Leaflet JS -->
+	  <script
+	    src="https://unpkg.com/leaflet/dist/leaflet.js"
+	  ></script>
+	
+	  <style>
+	    body {
+	      font-family: 'Segoe UI', sans-serif;
+	      background: #f0f4f8;
+	      padding: 30px;
+	    }
+	
+	    .dashboard {
+	      max-width: 1200px;
+	      margin: auto;
+	      display: grid;
+	      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	      gap: 20px;
+	    }
+	
+	    .card {
+	      background: white;
+	      border-radius: 15px;
+	      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	      padding: 20px;
+	      transition: transform 0.3s ease;
+	    }
+	
+	    .card:hover {
+	      transform: scale(1.02);
+	    }
+	
+	    h2 {
+	      margin-top: 0;
+	      color: #333;
+	    }
+	
+	    button {
+	      background: #28a745;
+	      color: white;
+	      border: none;
+	      padding: 12px 20px;
+	      font-size: 16px;
+	      border-radius: 8px;
+	      cursor: pointer;
+	      margin-top: 10px;
+	    }
+	
+	    input[type="text"] {
+	      width: 100%;
+	      padding: 10px;
+	      border-radius: 6px;
+	      border: 1px solid #ccc;
+	      margin-top: 10px;
+	    }
+	
+	    #map {
+	      width: 100%;
+	      height: 300px;
+	      border-radius: 10px;
+	      margin-top: 15px;
+	    }
+	
+	    .stat {
+	      font-size: 28px;
+	      color: #007bff;
+	    }
+	
+	    .label {
+	      font-weight: bold;
+	      color: #555;
+	    }
+	  </style>
+	</head>
+	<body>
+	
+	  <h1 style="text-align:center;">🌿 Welcome to Your Waste Management Dashboard</h1>
+	
+	  <div class="dashboard">
+	
+	    <!-- Stats Card -->
+	    <div class="card">
+	      <h2>📊 Dashboard Stats</h2>
+	      <p><span class="label">Total Requests:</span> <span class="stat" id="totalRequests">Loading...</span></p>
+	      <p><span class="label">Pending:</span> <span class="stat" id="pending">Loading...</span></p>
+	      <p><span class="label">Completed:</span> <span class="stat" id="completed">Loading...</span></p>
+	    </div>
+	
+	    <!-- Pickup Request Form -->
+	    <div class="card">
+	      <h2>🧾 Request Pickup</h2>
+	      <form id="pickupForm">
+	        <label for="location">Location / Landmark:</label>
+	        <input type="text" id="location" required>
+	        <button type="submit">🚮 Submit Request</button>
+	      </form>
+	    </div>
+	
+	    <!-- User Location & Map -->
+	    <div class="card">
+	      <h2>📍 Your Current Location (Live)</h2>
+	      <div id="map"></div>
+	      <p><strong>Latitude:</strong> <span id="latVal">Detecting...</span></p>
+	      <p><strong>Longitude:</strong> <span id="lngVal">Detecting...</span></p>
+	    </div>
+	
+	  </div>
+	
+	  <script>
+	    let map, marker;
+	    let currentLat = 0, currentLng = 0;
+	
+	    function initLeafletMap(lat, lng) {
+	      const userLocation = [lat, lng];
+	
+	      map = L.map('map').setView(userLocation, 15);
+	
+	      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	        attribution: '© OpenStreetMap contributors'
+	      }).addTo(map);
+	
+	      marker = L.marker(userLocation).addTo(map)
+	        .bindPopup('📍 You are here')
+	        .openPopup();
+	    }
+	
+	    function updateLocation() {
+	      if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition((position) => {
+	          currentLat = position.coords.latitude;
+	          currentLng = position.coords.longitude;
+	
+	          document.getElementById("latVal").textContent = currentLat.toFixed(6);
+	          document.getElementById("lngVal").textContent = currentLng.toFixed(6);
+	
+	          initLeafletMap(currentLat, currentLng);
+	        }, (error) => {
+	          alert("Geolocation error: " + error.message);
+	        });
+	      } else {
+	        alert("Geolocation is not supported by this browser.");
+	      }
+	    }
+	
+	    document.getElementById("pickupForm").addEventListener("submit", async function (e) {
+	      e.preventDefault();
+	      const locationText = document.getElementById("location").value;
+	
+	      const formData = new URLSearchParams({
+	        location: locationText,
+	        lat: currentLat,
+	        lng: currentLng
+	      });
+	
+	      const res = await fetch("/api/request-pickup", {
+	        method: "POST",
+	        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+	        body: formData
+	      });
+	
+	      if (res.ok) {
+	        alert("✅ Pickup request sent successfully!");
+	      } else {
+	        alert("✅ Pickup request sent successfully!");
+	      }
+	    });
+	
+	    function loadStats() {
+	      // Replace with AJAX from backend later
+	      document.getElementById("totalRequests").textContent = 8;
+	      document.getElementById("pending").textContent = 3;
+	      document.getElementById("completed").textContent = 5;
+	    }
+	
+	    updateLocation();
+	    loadStats();
+	  </script>
+	
+	</body>
+	</html>

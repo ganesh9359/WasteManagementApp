@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Form</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f1f1f1;
+		}
+		
+		.container {
+			margin: 100px auto;
+			width: 400px;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+		}
+		
+		h2 {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		
+		input[type=text], input[type=password] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+		
+		button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 14px 20px;
+			margin: 8px 0;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			width: 100%;
+		}
+		
+		button:hover {
+			background-color: #45a049;
+		}
+		
+		.cancelbtn {
+			width: auto;
+			padding: 10px 18px;
+			background-color: #f44336;
+		}
+		
+		.imgcontainer {
+			text-align: center;
+			margin: 24px 0 12px 0;
+		}
+		
+		img.avatar {
+			width: 40%;
+			border-radius: 50%;
+		}
+		
+		.container form {
+			border: 1px solid #ccc;
+			padding: 16px;
+			border-radius: 5px;
+		}
+		
+		span.psw {
+			float: right;
+			padding-top: 16px;
+		}
+		
+		@media screen and (max-width: 600px) {
+			.container {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h2>Login Form</h2>
+		<form action="userLogin" method="post">
+			<div class="imgcontainer">
+				<img src="https://blogs.ntu.edu.sg/cheonlab/files/2020/02/146-1468479_my-profile-icon-blank-profile-picture-circle-hd-copy.png" alt="Avatar" class="avatar">
+			</div>
+		
+			<label for="uname"><b>Username</b></label>
+			<input type="text" placeholder="Enter Username" name="uname" required>
+		
+			<label for="psw"><b>Password</b></label>
+			<input type="password" placeholder="Enter Password" name="psw" required>
+				
+			<button type="submit" >Login</button>
+                    <p class="forget">
+                        Don't have an account? <a href="User_register.html">Sign Up</a>
+                    </p>
+
+		</form>
+	</div>
+</body>
+</html>

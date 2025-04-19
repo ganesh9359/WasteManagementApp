@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waste Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #a8edea, #fed6e3);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    img{ 
+    width:350px;
+    height:250px;
+    }
+    .tip1txt
+     {
+     top:10vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     .tip2txt{
+     top:28vw;	
+     margin-left:400px;
+     position:absolute; 
+     }
+     .tip3txt
+     { 
+     top:46vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     .tip4txt
+     { 
+     top:63vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     .tip5txt
+     { 
+     top:82vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     .tip6txt
+     { 
+     top:99vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     .tip7txt
+     { 
+     top:117vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     .tip8txt
+     { 
+     top:135vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     .tip9txt
+     { 
+     top:155vw;	
+     margin-left:400px;
+     position:absolute;
+     }
+     p{
+     font-size:20px;
+     font-family: "Times New Roman", Times, serif;
+      }
+      h5{
+      font-size:25px;
+      font-family: "Times New Roman", Times, serif;
+      }
+  </style>
+</head>
+<body class="text-gray-800">
+  <!-- Navbar -->
+  <header class="bg-white shadow-md py-4 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <h1 class="text-2xl font-bold">Waste Management System</h1>
+      <nav class="space-x-4">
+        <a href="#login" class="text-blue-600 hover:underline">Login</a>
+        <a href="#admin" class="text-red-600 hover:underline">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Welcome Banner -->
+  <section class="text-center py-20 bg-gradient-to-r from-green-200 to-blue-100" data-aos="fade-down">
+    <h2 class="text-4xl font-bold mb-4">Welcome to</h2>
+    <span id="typed-text" class="text-5xl font-extrabold text-green-700"></span>
+  </section>
+
+  <!-- Sections -->
+  <section class="container mx-auto px-4 py-12 grid grid-cols-1 gap-10">
+
+    <div id="history" class="p-6 bg-white rounded-xl shadow-md" data-aos="fade-up">
+      <h3 class="text-2xl font-bold mb-6 text-center">Work History</h3>
+      <canvas id="workHistoryChart" class="mx-auto" style="max-width: 600px;"></canvas>
+    </div>
+
+    <div id="tips" class="p-6 bg-white rounded-xl shadow-md" data-aos="fade-up">
+      <h3 class="text-2xl font-bold mb-6 text-center">Tips & Tricks</h3>
+      <ul class="list-disc list-inside mb-6">
+        <li>Always segregate wet and dry waste.</li>
+        <li>Reuse and recycle wherever possible.</li>
+        <li>Avoid plastic and go for biodegradable materials.</li>
+      </ul>
+      <div class="space-y-6">
+      <div class=tip1>
+        <img src="1.webp" alt="Tip 1"  >
+        </div>
+        <div class="tip1txt">
+        <h5>1. Bulk goods are the ultimate eco friendly products</h5>
+          <p>Consider buying staples in bulk and storing them in reusable containers <br> 
+             mason jars or cloth bags. Because you can control the amount you buy, you<br> 
+              can get exactly what you need. You should notice a difference at the grocery <br>
+             store checkout, too, since pre-packaged goods tend to come with a higher<br> 
+              price tag. To save more money, consider joining a local food buying club (or start one)!</p>
+                                 </div>
+                                 
+        <img src="2.webp" alt="Tip 2" >
+        <div class="tip2txt">
+        <h5> 2. No Plastic Bottles</h5>
+        <p>According to a 2014 report by Food and Water Watch, approximately 64% of<br>
+        bottled water sold in the United States is tap water in a misleading package.<br>
+        Instead of falling for clever marketing, invest in a quality water filter and a<br>
+        reusable water bottle. We love glass, but there are plenty of other sustainable<br>
+        options! Save money and help the planet by not contributing the thousands of <br>
+        gallons of oil needed to meet global demand for plastic water bottles.
+        </p>
+        </div>
+        
+        <img src="3.jpeg" alt="Tip 3" > 
+        <div class="tip3txt">
+        <h5> 3. Invest In a Set of Cloth Produce Bags</h5>
+        <p>You know those flimsy plastic bags they offer in the produce department?<br>
+       Super wasteful. Investing in (and remembering to bring) a set of cloth produce<br>
+        bags will protect your purchases and prevent more plastic from ending up in<br>
+        the ocean. These bags are great for transporting bulk goods, too. Plus, your<br>
+         produce will never be cuter! <br>
+        </p>
+        </div>
+
+          
+        <img src="4.webp" alt="Tip 4" >
+          <div class="tip4txt">
+        <h5> 4. Avoid Produce That's Wrapped in Plastic</h5>
+        <p>This can be hard to avoid, since many supermarkets go heavy on the shrink<br>
+        wrap—even for produce with naturally biodegradable "packaging." Shrink-<br>
+        wrapped bananas, anyone? But, that brings us to our next tip!<br>
+        </p>
+        </div>
+        
+        <img src="5.webp" alt="Tip 5" >
+        
+        <div class="tip5txt">
+        <h5> 5. Support Your Local Farmer</h5>
+        <p>The food will be fresher, tastier, more sustainable, and way more nutritious.<br>
+          Besides, by supporting local farmers, you’ll put your money into your local<br>
+          economy instead of a corporation. Alternatively, you could join a CSA or sign<br>
+          atively, you could join a CSA or sign  <br>
+        </p>
+        </div>
+        
+        <img src="6.webp" alt="Tip 6" >
+        
+        <div class="tip6txt">
+        <h5> 6. Avoid Single-Use Plastics</h5>
+        <p>Plastic cutlery, straws, plates, and cups clog our landfills and can be very<br>
+       dangerous for aquatic life. To make it simple, get yourself a cute set of<br>
+        reusable cutlery, stainless steel straws, and reusable containers to keep in<br>
+        your car or bag while out and about. <br>
+        </p>
+        </div>
+        
+        <img src="7.webp" alt="Tip 7" >
+        
+        <div class="tip7txt">
+        <h5> 7. Ditch the Tea Bags</h5>
+        <p>Most tea bags are loaded with micro plastics that are bad for you and the<br>
+       environment. But have no fear: loose-leaf tea is here!  Pick up an in-mug<br>
+        strainer or a set of reusable cloth tea bags and you’ll be on your way to a<br>
+        delicious, sustainable brew in no time! Herbs and blends for tea can usually<br>
+         be found in the bulk section of your local food co-op. <br>
+        </p>
+        </div>
+        
+        <img src="8.webp" alt="Tip 8" >
+        <div class="tip8txt">
+        <h5> 8. Green Up Your Closet</h5>
+        <p>Buy exclusively from sustainable clothing brands or hit up your local thrift or<br>
+      consignment shop. Often, you'll find unique, gently worn (or even brand new)<br>
+        you get that?” And while you’re there, donate that pair of jeans you haven't<br>
+        been able to squeeze into in 10 years. In the words of Marie Kondo: "To truly<br>
+         been able to squeeze into in 10 years. In the words of Marie Kondo: "To truly<br>
+         have outlived their purpose."
+        </p>
+        </div>
+        
+        <img src="10.webp" alt="Tip 9">
+        <div class="tip9txt">
+        <h5> 9. Plan Your Meals</h5>
+        <p>Meal planning can streamline your grocery trips, trim food costs, and reduce<br>
+       waste by ensuring you'll use everything you purchase. It will also save you<br>
+        from the question many dread after a long day of work: “what’s for dinner<br>
+        tonight?” And who knows? You might just score a little more "you" time on<br>
+        busy weeknights. For more ideas, read our sustainable diet guide.<br>
+        </p>
+        </div>
+        
+      </div>
+    </div>
+
+    <div id="services" class="p-6 bg-white rounded-xl shadow-md" data-aos="fade-up">
+      <h3 class="text-2xl font-bold mb-6 text-center">Our Services</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Residential waste pickup</li>
+        <li>Commercial waste handling</li>
+        <li>Recycling programs</li>
+        <li>Community awareness campaigns</li>
+      </ul>
+    </div>
+
+    <div id="login" class="p-6 bg-white rounded-xl shadow-md" data-aos="fade-up">
+      <h3 class="text-2xl font-bold mb-2">User Login</h3>
+      <a href="user_login.html" class="text-blue-600 underline">Login Here</a>
+    </div>
+
+    <div id="admin" class="p-6 bg-white rounded-xl shadow-md" data-aos="fade-up">
+      <h3 class="text-2xl font-bold mb-2">Admin Login</h3>
+      <a href="admin_login.html" class="text-red-600 underline">Admin Panel</a>
+    </div>
+  </section>
+
+  <footer class="bg-white mt-12 shadow-inner">
+    <div class="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+      <div id="about">
+        <h3 class="text-lg font-bold mb-2">About Us</h3>
+        <p>We are committed to creating a sustainable environment by managing waste responsibly, using modern technologies and community engagement to ensure a cleaner future.</p>
+      </div>
+      <div id="contact">
+        <h3 class="text-lg font-bold mb-2">Contact Details</h3>
+        <p>Email: contact@wastemgmt.com<br>Phone: +91-9876543210<br>Location: GreenTech Towers, New Delhi, India</p>
+      </div>
+    </div>
+    <div class="text-center text-xs py-4 bg-gray-100">
+      <p>&copy; 2025 Waste Management System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    AOS.init();
+    var typed = new Typed("#typed-text", {
+      strings: ["Waste Management System", "Cleaner Earth, Brighter Future", "Recycle. Reuse. Reduce."],
+      typeSpeed: 50,
+      backSpeed: 30,
+      loop: true
+    });
+
+    const ctx = document.getElementById('workHistoryChart').getContext('2d');
+    const workHistoryChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['2019', '2020', '2021', '2022', '2023','2024'],
+        datasets: [{
+          label: 'Tons of Waste Processed',
+          data: [500, 1200, 1900, 2600, 3100,4000],
+          backgroundColor: 'rgba(34, 197, 94, 0.7)',
+          borderColor: 'rgba(34, 197, 94, 1)',
+          borderWidth: 1,
+          borderRadius: 8
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

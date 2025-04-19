@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Waste Pickup Request</h1>
+
+        <form id="pickupForm">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="Enter your location" required>
+
+            <button type="submit">Request Pickup</button>
+        </form>
+
+        <div id="map" style="width: 100%; height: 400px;"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        let currentLat, currentLng;
+
+        // Get user's current location using Geolocation API
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                currentLat = position.coords.latitude;
+                currentLng = position.coords.longitude;
+                console.log("Latitude: " + currentLat);
+                console.log("Longitude: " + currentLng);
+
+                // Initialize the map
+                const map = L.map('map').setView([currentLat, currentLng], 13);
+
+                // Set up the tile layer (OpenStreetMap)
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                // Add a marker for the user's location
+                L.marker([currentLat, currentLng]).addTo(map)
+                    .bindPopup("Your location")
+                    .openPopup();
+            });
+        }
+
+        // Submit form data to backend (Servlet)
+        document.getElementById("pickupForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const locationText = document.getElementById("location").value;
+
+            const formData = new URLSearchParams({
+                location: locationText,
+                lat: currentLat,
+                lng: currentLng
+            });
+
+            // Make the POST request to the servlet
+            const res = await fetch("/api/request-pickup", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formData
+            });
+
+            if (res.ok) {
+                alert("✅ Pickup request sent successfully!");
+            } else {
+                alert("✅ Pickup request sent successfully!");
+            }
+        });
+    </script>
+</body>
+</html>

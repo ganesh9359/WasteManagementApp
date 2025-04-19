@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Live Location with Leaflet</title>
+
+  <!-- ✅ FIXED Leaflet CSS (No integrity issues) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  <!-- ✅ FIXED Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet/dist/leaflet.js"
+  ></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map">Loading map...</div>
+
+  <script>
+    function showMap(lat, lng) {
+      const map = L.map('map').setView([lat, lng], 15);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
+      }).addTo(map);
+
+      L.marker([lat, lng]).addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+    }
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            showMap(lat, lng);
+          },
+          (error) => {
+            alert("❌ Location error: " + error.message);
+            document.getElementById("map").innerText = "Failed to get location.";
+          }
+        );
+      } else {
+        alert("Geolocation not supported.");
+        document.getElementById("map").innerText = "Geolocation not supported.";
+      }
+    }
+
+    getLocation();
+  </script>
+</body>
+</html>

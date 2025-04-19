@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Waste Management</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lottie-web@5.7.4/build/player/lottie.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      color: #fff;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      padding: 1.5rem;
+      font-size: 2rem;
+      text-align: center;
+      backdrop-filter: blur(6px);
+    }
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    h2 {
+      margin-bottom: 1rem;
+    }
+    #map {
+      height: 300px;
+      border-radius: 12px;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      border: none;
+    }
+    button {
+      padding: 0.6rem 1.2rem;
+      background: #00e676;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .stat-count {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>🚮 Admin Dashboard - Waste Management</header>
+
+<div class="dashboard">
+  <div class="card">
+    <h2>Total Requests 📦</h2>
+    <div class="stat-count" data-target="145">0</div>
+    <canvas id="totalChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Active Vehicles 🚛</h2>
+    <div class="stat-count" data-target="12">0</div>
+    <canvas id="vehicleChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Assign Vehicle</h2>
+    <input type="number" id="requestId" placeholder="Request ID" />
+    <input type="number" id="vehicleId" placeholder="Vehicle ID" />
+    <button onclick="assignVehicle()">Assign</button>
+  </div>
+
+  <div class="card">
+    <h2>Update Request Status</h2>
+    <input type="number" id="updateRequestId" placeholder="Request ID" />
+    <select id="status">
+      <option value="Pending">Pending</option>
+      <option value="Assigned">Assigned</option>
+      <option value="Completed">Completed</option>
+    </select>
+    <button onclick="updateStatus()">Update</button>
+  </div>
+
+  
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const counters = document.querySelectorAll('.stat-count');
+  counters.forEach(counter => {
+    const update = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const speed = target / 100;
+      if (count < target) {
+        counter.innerText = Math.ceil(count + speed);
+        setTimeout(update, 20);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    update();
+  });
+
+  const ctx1 = document.getElementById('totalChart').getContext('2d');
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ['Pending', 'Assigned', 'Completed'],
+      datasets: [{
+        data: [50, 30, 65],
+        backgroundColor: ['#ff5722', '#ffc107', '#4caf50']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } }
+    }
+  });
+
+  const ctx2 = document.getElementById('vehicleChart').getContext('2d');
+  new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: ['Active', 'Inactive'],
+      datasets: [{
+        data: [12, 3],
+        backgroundColor: ['#00e676', '#e53935']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+
+  let map = L.map('map').setView([28.6139, 77.2090], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © OpenStreetMap contributors'
+  }).addTo(map);
+  L.marker([28.6139, 77.2090]).addTo(map).bindPopup('Sample Location').openPopup();
+
+  function assignVehicle() {
+    const reqId = document.getElementById('requestId').value;
+    const vehId = document.getElementById('vehicleId').value;
+    alert(`✅ Vehicle ${vehId} assigned to Request ${reqId}`);
+  }
+
+  function updateStatus() {
+    const reqId = document.getElementById('updateRequestId').value;
+    const status = document.getElementById('status').value;
+    alert(`📌 Request ${reqId} updated to status: ${status}`);
+  }
+</script>
+</body>
+</html>
