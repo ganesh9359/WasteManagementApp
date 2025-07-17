@@ -3,7 +3,7 @@
   "redirects":[
     {
       "source":"/",
-      "destination":"/welcome-page.html"
+      "destination":"/welcomePage.html"
     }
   ]
 }
